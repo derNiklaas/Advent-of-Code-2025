@@ -50,11 +50,3 @@ class Day02 : AoCDay() {
 fun main() {
     Day02().execute()
 }
-
-/*
-too low:
-- 28146997869
-- 28146997880
-
-
- */

@@ -21,7 +21,7 @@ class Day04 : AoCDay() {
             lastSize = copySet.size
             val toDelete = mutableListOf<Vec2D>()
 
-            copySet.asSequence().forEach { location ->
+            copySet.forEach { location ->
                 val neighbours = location.getNeighbours()
                 if (neighbours.count { it in copySet } < 4) {
                     available++

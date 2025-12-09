@@ -1,5 +1,6 @@
 package utils
 
+import de.derniklaas.utils.Line
 import kotlin.math.abs
 
 data class Vec2D(val x: Int, val y: Int) {
@@ -40,6 +41,8 @@ data class Vec2D(val x: Int, val y: Int) {
     operator fun minus(other: Vec2D) = Vec2D(x - other.x, y - other.y)
 
     operator fun times(times: Int) = Vec2D(x * times, y * times)
+
+    operator fun rangeTo(other: Vec2D) = Line(this, other)
 }
 
 operator fun <T> List<List<T>>.get(point: Vec2D): T = this[point.y][point.x]

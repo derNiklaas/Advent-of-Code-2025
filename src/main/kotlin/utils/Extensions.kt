@@ -1,6 +1,8 @@
 package utils
 
 import java.io.File
+import java.math.BigInteger
+import kotlin.experimental.ExperimentalTypeInference
 
 fun readFile(name: String, test: Boolean = false) =
     File("src/${if (test) "test" else "main"}/resources/$name.txt").readLines()
@@ -110,3 +112,28 @@ fun List<String>.chunkedInput(): List<List<String>> {
 }
 
 fun <T> Iterable<T>.cartesianSquare(): List<Pair<T, T>> = flatMap { v -> map { v to it } }
+
+fun Iterable<Int>.product() = reduce { acc, curr -> acc * curr }
+
+@JvmName("productLongs")
+fun Iterable<Long>.product() = reduce { acc, curr -> acc * curr }
+
+@JvmName("productBigs")
+fun Iterable<BigInteger>.product() = reduce { acc, curr -> acc * curr }
+
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+inline fun <T> Iterable<T>.sumOfIndexed(block: (idx: Int, T) -> Int): Int {
+    var res = 0
+    for ((idx, el) in withIndex()) res += block(idx, el)
+    return res
+}
+
+@OptIn(ExperimentalTypeInference::class)
+@JvmName("sumOfIndexedLongs")
+@OverloadResolutionByLambdaReturnType
+inline fun <T> Iterable<T>.sumOfIndexed(block: (idx: Int, T) -> Long): Long {
+    var res = 0L
+    for ((idx, el) in withIndex()) res += block(idx, el)
+    return res
+}
